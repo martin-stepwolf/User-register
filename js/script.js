@@ -32,16 +32,18 @@ function Show_data() {
     .ref("/users")
     .once("value")
     .then(function(data2) {
-      var data = Object.values(data2.val());
       $("#data").text("");
-      for (a in data)
-        $("#data").append(
-          "<div class='alert alert-dark col-4'>Name: " +
-            data[a].username +
-            "<br>ID:" +
-            data[a].id +
-            " </div>"
-        );
+      if (data2.val() != undefined) {
+        var data = Object.values(data2.val());
+        for (a in data)
+          $("#data").append(
+            "<div class='alert alert-dark col-4'>Name: " +
+              data[a].username +
+              "<br>ID:" +
+              data[a].id +
+              " </div>"
+          );
+      } else $("#data").append("<div class='alert alert-dark col-12'>Empty</div>");
     }); //lectura de los datos
 }
 
@@ -51,6 +53,7 @@ function Delete_database() {
     .ref("users/")
     .set({}); //resetea los datos
   $("#data").text("");
+  $("#data").append("<div class='alert alert-dark col-12'>Empty</div>");
 }
 
 $("form").on("submit", function(e) {
@@ -60,9 +63,13 @@ $("form").on("submit", function(e) {
       .find("[name=name]")
       .val()
   );
-  Show_data();
 });
 
 $(document).ready(function() {
-  Show_data();
+  firebase
+    .database()
+    .ref("users/")
+    .on("value", function() {
+      Show_data();
+    });
 });
