@@ -23,7 +23,7 @@ function Show_data() {
     .once("value")
     .then(function(data2) {
       var data = Object.values(data2.val());
-      $("#data").text('');
+      $("#data").text("");
       for (a in data)
         $("#data").append(
           "<div class='alert alert-dark col-4'>Name: " +
@@ -34,16 +34,6 @@ function Show_data() {
         );
     }); //lectura de los datos
 }
-
-$("form").on("submit", function(e) {
-  e.preventDefault();
-  writeUserData(
-    $(this)
-      .find("[name=name]")
-      .val()
-  );
-  Show_data();
-});
 
 function Delete_database() {
   id_next = firebase
@@ -57,6 +47,16 @@ function Delete_database() {
     .set({});
   Show_data();
 }
+
+$("form").on("submit", function(e) {
+  e.preventDefault();
+  writeUserData(
+    $(this)
+      .find("[name=name]")
+      .val()
+  );
+  Show_data();
+});
 
 $(document).ready(function() {
   Show_data();
