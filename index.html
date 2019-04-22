@@ -26,17 +26,31 @@
   <body>
     <div class="container jumbotron">
       <center><h1>User Register</h1></center>
-      <div class="row" id="data"></div>
-      <hr />
       <div class="row">
-        <form>
-          Add new User<input type="text" name="name" required />
-          <input type="submit" value="Save" />
-        </form>
+        <div class="col-6">
+          <form>
+            <div class="form-group">
+              Add new user<input
+                class="form-control"
+                type="text"
+                name="name"
+                placeholder="Type the name"
+                required
+              />
+              <input class="btn btn-success" type="submit" value="Save" />
+            </div>
+          </form>
+        </div>
+        <div class="col-6">
+          Operations<br />
+          <button class="btn btn-danger" onclick="Delete_database();">
+            Delete database
+          </button>
+        </div>
       </div>
-      <button class="btn btn-danger" onclick="Delete_database();">
-        Delete database
-      </button>
+      <hr />
+      <center><h1>Users</h1></center>
+      <div class="row" id="data"></div>
     </div>
   </body>
   <script src="js/script.js"></script>

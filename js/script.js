@@ -36,16 +36,11 @@ function Show_data() {
 }
 
 function Delete_database() {
-  id_next = firebase
-    .database()
-    .ref()
-    .child("users")
-    .push().key;
   firebase
     .database()
-    .ref("users/") //agrega la ruta y una id unica
-    .set({});
-  Show_data();
+    .ref("users/")
+    .set({}); //resetea los datos
+  $("#data").text("");
 }
 
 $("form").on("submit", function(e) {
