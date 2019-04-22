@@ -15,29 +15,49 @@ function writeUserData(name) {
       username: name
     });
 }
-// writeUserData("raul");
 
-firebase
-  .database()
-  .ref("/users")
-  .once("value")
-  .then(function(data2) {
-    var data = Object.values(data2.val());
-    console.log(data);
-    for (a in data)
-      $("#data").append(
-        "<div class='alert alert-dark col-6'>Nombre: " +
-          data[a].username +
-          "<br>ID:" +
-          data[a].id +
-          " </div>"
-      );
-  }); //lectura de los datos
+function Show_data() {
+  firebase
+    .database()
+    .ref("/users")
+    .once("value")
+    .then(function(data2) {
+      var data = Object.values(data2.val());
+      $("#data").text('');
+      for (a in data)
+        $("#data").append(
+          "<div class='alert alert-dark col-4'>Name: " +
+            data[a].username +
+            "<br>ID:" +
+            data[a].id +
+            " </div>"
+        );
+    }); //lectura de los datos
+}
 
-$("form").on("submit", function() {
+$("form").on("submit", function(e) {
+  e.preventDefault();
   writeUserData(
     $(this)
       .find("[name=name]")
       .val()
   );
+  Show_data();
+});
+
+function Delete_database() {
+  id_next = firebase
+    .database()
+    .ref()
+    .child("users")
+    .push().key;
+  firebase
+    .database()
+    .ref("users/") //agrega la ruta y una id unica
+    .set({});
+  Show_data();
+}
+
+$(document).ready(function() {
+  Show_data();
 });
