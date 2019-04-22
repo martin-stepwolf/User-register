@@ -1,3 +1,13 @@
+// Initialize Firebase
+var config = {
+  apiKey: "AIzaSyDWWR59uAGPhw7bWVWS3K6iqTa2am4m0LE",
+  authDomain: "prueba-234220.firebaseapp.com",
+  databaseURL: "https://prueba-234220.firebaseio.com",
+  projectId: "prueba-234220",
+  storageBucket: "prueba-234220.appspot.com",
+  messagingSenderId: "857418068542"
+};
+
 var defaultApp = firebase.initializeApp(config);
 var defaultDatabase = defaultApp.database();
 
