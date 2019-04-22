@@ -25,7 +25,7 @@ firebase
     var data = Object.values(data2.val());
     console.log(data);
     for (a in data)
-      $(".row").append(
+      $("#data").append(
         "<div class='alert alert-dark col-6'>Nombre: " +
           data[a].username +
           "<br>ID:" +
@@ -33,3 +33,11 @@ firebase
           " </div>"
       );
   }); //lectura de los datos
+
+$("form").on("submit", function() {
+  writeUserData(
+    $(this)
+      .find("[name=name]")
+      .val()
+  );
+});
