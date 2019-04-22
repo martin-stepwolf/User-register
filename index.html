@@ -7,15 +7,27 @@
     <link rel="stylesheet" href="lib/bootstrap.min.css" />
     <link rel="stylesheet" href="css/style.css" />
     <script src="lib/jquery.min.js"></script>
-    <!--LIBRERIA DE AJAX-->
     <script src="lib/bootstrap.min.js"></script>
   </head>
+  <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-database.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyDWWR59uAGPhw7bWVWS3K6iqTa2am4m0LE",
+      authDomain: "prueba-234220.firebaseapp.com",
+      databaseURL: "https://prueba-234220.firebaseio.com",
+      projectId: "prueba-234220",
+      storageBucket: "prueba-234220.appspot.com",
+      messagingSenderId: "857418068542"
+    };
+  </script>
+  <!-- Firebase App is always required and must be first -->
   <body>
     <div class="container">
       <div class="row"></div>
     </div>
   </body>
-  <script src="lib/firebase.js"></script>
-  <script src="lib/firebase-database.js"></script>
   <script src="js/script.js"></script>
 </html>
