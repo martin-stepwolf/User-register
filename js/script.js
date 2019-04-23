@@ -37,13 +37,13 @@ function Show_data() {
         var data = Object.values(data2.val());
         for (a in data)
           $("#data").append(
-            "<div class='alert alert-dark col-4'>Name: " +
+            "<div class='alert alert-dark col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3'>Name: " +
               data[a].username +
               "<br>ID:" +
               data[a].id +
               " </div>"
           );
-      } else $("#data").append("<div class='alert alert-dark col-12'>Empty</div>");
+      } else $("#data").append("<div class='alert alert-dark col-12 '>Empty</div>");
     }); //lectura de los datos
 }
 
@@ -64,6 +64,38 @@ $("form").on("submit", function(e) {
       .val()
   );
 });
+
+function Download_database() {
+  //creamos un FileReader para leer el Blob
+  var reader = new FileReader();
+  //Definimos la función que manejará el archivo
+  //una vez haya terminado de leerlo
+  reader.onload = function(event) {
+    //Usaremos un link para iniciar la descarga
+    var save = document.createElement("a");
+    save.href = event.target.result;
+    save.target = "_blank";
+    //Truco: así le damos el nombre al archivo
+    save.download = "archivo.txt" || "archivo.dat";
+    var clicEvent = new MouseEvent("click", {
+      view: window,
+      bubbles: true,
+      cancelable: true
+    });
+    //Simulamos un clic del usuario
+    //no es necesario agregar el link al DOM.
+    save.dispatchEvent(clicEvent);
+    //Y liberamos recursos...
+    (window.URL || window.webkitURL).revokeObjectURL(save.href);
+  };
+  //Genera un objeto Blob con los datos en un archivo TXT
+  var texto = ["hola ", "mundo"];
+  var print = new Blob(texto, {
+    type: "text/plain"
+  });
+  //Leemos el blob y esperamos a que dispare el evento "load"
+  reader.readAsDataURL(print);
+}
 
 $(document).ready(function() {
   firebase

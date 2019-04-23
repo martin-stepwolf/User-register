@@ -16,7 +16,7 @@
     <div class="container jumbotron">
       <center><h1>User Register</h1></center>
       <div class="row">
-        <div class="col-6">
+        <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
           <form>
             <div class="form-group">
               Add new user<input
@@ -30,10 +30,19 @@
             </div>
           </form>
         </div>
-        <div class="col-6">
+        <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
           Operations<br />
-          <button class="btn btn-danger" onclick="Delete_database();">
+          <button
+            class="btn btn-danger form-control"
+            onclick="Delete_database();"
+          >
             Delete database
+          </button>
+          <button
+            class="btn btn-secondary form-control"
+            onclick="Download_database();"
+          >
+            Download database
           </button>
         </div>
       </div>
