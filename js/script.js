@@ -75,8 +75,12 @@ function Download_database() {
     var save = document.createElement("a");
     save.href = event.target.result;
     save.target = "_blank";
+    //determinacion de fecha para el archivo
+    var d = new Date();
+    var date_today =
+      d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear();
     //Truco: así le damos el nombre al archivo
-    save.download = "archivo.txt" || "archivo.dat";
+    save.download = "users " + date_today + ".json" || "users.dat";
     var clicEvent = new MouseEvent("click", {
       view: window,
       bubbles: true,
@@ -89,12 +93,33 @@ function Download_database() {
     (window.URL || window.webkitURL).revokeObjectURL(save.href);
   };
   //Genera un objeto Blob con los datos en un archivo TXT
-  var texto = ["hola ", "mundo"];
-  var print = new Blob(texto, {
-    type: "text/plain"
-  });
-  //Leemos el blob y esperamos a que dispare el evento "load"
-  reader.readAsDataURL(print);
+  var texto = [];
+  //Lectura desde firebase y llenado de informacion para imprimir
+  firebase
+    .database()
+    .ref("/users")
+    .once("value")
+    .then(function(data2) {
+      if (data2.val() != undefined) {
+        var data = Object.values(data2.val());
+        texto.push('{\n  "users": {\n');
+
+        for (a in data) {
+          texto.push('    "' + data[a].username + '": {\n');
+          texto.push('      "id": "' + data[a].id + '",\n');
+          texto.push('      "username": "' + data[a].username + '"\n');
+          if (a == data.length - 1) texto.push("    }\n");
+          else texto.push("    },\n");
+        }
+        texto.push("  }\n}");
+      } else texto = ["no data"];
+      //Creacion del Blob
+      var print = new Blob(texto, {
+        type: "text/plain"
+      });
+      //Leemos el blob y esperamos a que dispare el evento "load"
+      reader.readAsDataURL(print);
+    }); //lectura de los datos
 }
 
 $(document).ready(function() {
