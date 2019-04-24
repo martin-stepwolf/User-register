@@ -122,21 +122,25 @@ function Download_database() {
     }); //lectura de los datos
 }
 
-$("#file").on("change", function(e) {
-  e.preventDefault();
+document.getElementById("file").addEventListener("change", leerArchivo, false);
+
+function leerArchivo(e) {
   // console.log($('#file').val());//imprime una ruta y el nombre del archivo
   var allowedExtensions = /users .*(.json|.JSON)$/i; //formato  y las rutas permitidas
   if (allowedExtensions.exec($("#file").val())) {
-    //pasamos el archivo json
-    $.getJSON($("#file").val(), function(data) {
-      console.log(data);
-    });
+    var archivo = e.target.files[0];
+    var lector = new FileReader();
+    lector.onload = function(e) {
+      var contenido = e.target.result;
+      console.log(contenido);
+    };
+    lector.readAsText(archivo);
   } else
     alert(
       "File invalid, it has to be similar like the files you can download here."
     );
   $("#file").val("");
-});
+}
 
 $(document).ready(function() {
   firebase
