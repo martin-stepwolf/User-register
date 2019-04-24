@@ -125,14 +125,28 @@ function Download_database() {
 document.getElementById("file").addEventListener("change", leerArchivo, false);
 
 function leerArchivo(e) {
+  var archivo = e.target.files[0];
   // console.log($('#file').val());//imprime una ruta y el nombre del archivo
   var allowedExtensions = /users .*(.json|.JSON)$/i; //formato  y las rutas permitidas
-  if (allowedExtensions.exec($("#file").val())) {
-    var archivo = e.target.files[0];
+  if (
+    allowedExtensions.exec(archivo.name) &&
+    archivo.type == "application/json"
+  ) {
+    // console.log(archivo);// obtenemos de esta variable mucha informacion sobre el archivo
     var lector = new FileReader();
     lector.onload = function(e) {
-      var contenido = e.target.result;
-      console.log(contenido);
+      var users = JSON.parse(e.target.result).users;
+      // console.log(users);//ver los datos
+      id_next = firebase
+    .database()
+    .ref()
+    .push().key;
+  firebase
+    .database()
+    .ref("/") //agrega la ruta y una id unica
+    .set({
+      users
+    });
     };
     lector.readAsText(archivo);
   } else
