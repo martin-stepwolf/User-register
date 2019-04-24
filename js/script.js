@@ -122,6 +122,22 @@ function Download_database() {
     }); //lectura de los datos
 }
 
+$("#file").on("change", function(e) {
+  e.preventDefault();
+  // console.log($('#file').val());//imprime una ruta y el nombre del archivo
+  var allowedExtensions = /users .*(.json|.JSON)$/i; //formato  y las rutas permitidas
+  if (allowedExtensions.exec($("#file").val())) {
+    //pasamos el archivo json
+    $.getJSON($("#file").val(), function(data) {
+      console.log(data);
+    });
+  } else
+    alert(
+      "File invalid, it has to be similar like the files you can download here."
+    );
+  $("#file").val("");
+});
+
 $(document).ready(function() {
   firebase
     .database()
