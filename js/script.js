@@ -137,16 +137,10 @@ function leerArchivo(e) {
     lector.onload = function(e) {
       var users = JSON.parse(e.target.result).users;
       // console.log(users);//ver los datos
-      id_next = firebase
-    .database()
-    .ref()
-    .push().key;
-  firebase
-    .database()
-    .ref("/") //agrega la ruta y una id unica
-    .set({
-      users
-    });
+      firebase
+        .database()
+        .ref("/") //agrega la ruta y una id unica
+        .set({ users });
     };
     lector.readAsText(archivo);
   } else
